@@ -50,6 +50,8 @@ class Browser(QMainWindow):
         
     def add_new_tab(self, url=QUrl("https://www.google.com")):
         browser = QWebEngineView()
+        if not isinstance(url, QUrl):
+            url = QUrl("https://www.google.com")
         browser.setUrl(url)
         
         # Add tab
@@ -57,8 +59,7 @@ class Browser(QMainWindow):
         self.tabs.setCurrentIndex(i)
         
         # Update URL bar when URL changes
-        browser.urlChanged.connect(lambda qurl, browser=browser:
-            self.update_url_bar(qurl, browser))
+        browser.urlChanged.connect(lambda qurl: self.update_url_bar(qurl, browser))
             
     def current_tab(self):
         return self.tabs.currentWidget()
