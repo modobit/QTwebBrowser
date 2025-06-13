@@ -1,0 +1,10 @@
+# Build artifacts
+build/
+dist/
+*.spec
+
+# Virtual environment
+venv/
+
+# macOS specific
+.DS_Store 
