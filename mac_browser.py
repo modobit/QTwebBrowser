@@ -1,5 +1,6 @@
 import sys
 from settings import APP_NAME, STYLE
+from theme import FUSION_THEME_QSS
 from PyQt5.QtCore import QUrl, Qt
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QToolBar, QLineEdit,
                             QTabWidget, QWidget, QVBoxLayout, QPushButton, QAction)
@@ -50,8 +51,8 @@ class Browser(QMainWindow):
         
     def add_new_tab(self, url=QUrl("https://www.google.com")):
         browser = QWebEngineView()
-        if not isinstance(url, QUrl):
-            url = QUrl("https://www.google.com")
+        # Set a modern user agent to improve rendering compatibility
+        browser.page().profile().setHttpUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
         browser.setUrl(url)
         
         # Add tab
@@ -85,6 +86,7 @@ class Browser(QMainWindow):
 def main():
     app = QApplication(sys.argv)
     app.setStyle(STYLE)  # Use style from settings
+    app.setStyleSheet(FUSION_THEME_QSS)  # Apply custom theme
     window = Browser()
     window.show()
     sys.exit(app.exec_())
